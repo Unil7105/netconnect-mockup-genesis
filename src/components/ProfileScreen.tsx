@@ -43,7 +43,7 @@ const ProfileScreen = () => {
   };
 
   return (
-    <div className="w-full mx-auto pb-8 px-4 sm:px-6">
+    <div className="w-full max-w-6xl mx-auto pb-8 px-4 sm:px-6">
       <div className="relative mb-24 sm:mb-28">
         {/* Enhanced background with layered gradients and pattern */}
         <div className="h-36 sm:h-44 bg-gradient-to-r from-netconnect-blue via-netconnect-lilac to-purple-500 rounded-b-3xl overflow-hidden relative">
@@ -64,10 +64,10 @@ const ProfileScreen = () => {
             <div className="absolute inset-0 rounded-full bg-gradient-to-r from-netconnect-blue via-netconnect-lilac to-netconnect-mint opacity-70 group-hover:opacity-100 blur-sm group-hover:blur-md transition-all duration-300"></div>
             <div className="relative rounded-full p-0.5 bg-gradient-to-r from-netconnect-blue to-netconnect-lilac">
               {/* Enhanced status indicator with pulse animation */}
-              <div className="absolute top-0 right-0 -mr-1 -mt-1 z-10">
-                <span className="relative flex h-5 w-5">
+              <div className="absolute top-1 right-1 z-10">
+                <span className="relative flex h-4 w-4">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-50"></span>
-                  <span className="relative inline-flex rounded-full h-5 w-5 bg-green-500 border-2 border-white dark:border-netconnect-dark-card shadow-[0_0_10px_rgba(74,222,128,0.5)]"></span>
+                  <span className="relative inline-flex rounded-full h-4 w-4 bg-green-500 border-2 border-white dark:border-netconnect-dark-card"></span>
                 </span>
               </div>
               <img 
@@ -81,16 +81,16 @@ const ProfileScreen = () => {
           {/* Edit profile floating button over avatar */}
           <Button
             variant="ghost"
-            size="icon"
+            size="icon-sm"
             onClick={handleEditProfile}
-            className="absolute -top-2 -right-2 bg-white/90 dark:bg-netconnect-dark-card/90 backdrop-blur-sm h-8 w-8 rounded-full shadow-md hover:shadow-lg transition-all duration-300"
+            className="absolute -top-1 -right-1 bg-white/90 dark:bg-netconnect-dark-card/90 backdrop-blur-sm rounded-full shadow-md hover:shadow-lg transition-all duration-300 focus-ring"
           >
-            <PenSquare className="h-4 w-4 text-netconnect-blue dark:text-netconnect-mint" />
+            <PenSquare className="h-3.5 w-3.5 text-netconnect-blue dark:text-netconnect-mint" />
           </Button>
         </div>
         
         {/* Redesigned action buttons - moved below avatar on mobile */}
-        <div className={`${isMobile ? 'absolute top-24 left-1/2 transform -translate-x-1/2 flex flex-col gap-2 items-center mt-4' : 'absolute right-6 -bottom-10 flex items-center space-x-3'}`}>
+        <div className={`${isMobile ? 'absolute top-24 left-1/2 transform -translate-x-1/2 flex flex-col gap-2 items-center mt-8' : 'absolute right-6 -bottom-10 flex items-center space-x-3'}`}>
           <Button 
             className={cn(
               "transition-all duration-300 shadow-md hover:shadow-lg hover:translate-y-[-2px] gap-2 w-full sm:w-auto",
@@ -114,7 +114,7 @@ const ProfileScreen = () => {
         </div>
       </div>
       
-      <div className="px-4 sm:px-6">
+      <div className="px-4 sm:px-6 mt-8">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
           <div className={`${isMobile ? 'text-center' : ''}`}>
             <h1 className="text-2xl md:text-3xl font-bold mb-1">Sarah Anderson</h1>
@@ -223,25 +223,25 @@ const ProfileScreen = () => {
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <div className="space-y-3">
-                    <a href="#" className="flex items-center text-netconnect-blue dark:text-netconnect-mint hover:underline group">
+                    <a href="#" className="flex items-center text-netconnect-blue dark:text-netconnect-mint hover:underline focus-ring rounded-md group">
                       <div className="w-8 h-8 rounded-full bg-netconnect-blue/10 dark:bg-netconnect-mint/10 flex items-center justify-center mr-3 group-hover:bg-netconnect-blue/20 dark:group-hover:bg-netconnect-mint/20 transition-colors">
                         <Globe className="w-4 h-4 text-netconnect-blue dark:text-netconnect-mint" />
                       </div>
                       <span>sarahanderson.design</span>
                     </a>
-                    <a href="#" className="flex items-center text-netconnect-blue dark:text-netconnect-mint hover:underline group">
+                    <a href="#" className="flex items-center text-netconnect-blue dark:text-netconnect-mint hover:underline focus-ring rounded-md group">
                       <div className="w-8 h-8 rounded-full bg-netconnect-blue/10 dark:bg-netconnect-mint/10 flex items-center justify-center mr-3 group-hover:bg-netconnect-blue/20 dark:group-hover:bg-netconnect-mint/20 transition-colors">
                         <Twitter className="w-4 h-4 text-netconnect-blue dark:text-netconnect-mint" />
                       </div>
                       <span>@sarahdesigns</span>
                     </a>
-                    <a href="#" className="flex items-center text-netconnect-blue dark:text-netconnect-mint hover:underline group">
+                    <a href="#" className="flex items-center text-netconnect-blue dark:text-netconnect-mint hover:underline focus-ring rounded-md group">
                       <div className="w-8 h-8 rounded-full bg-netconnect-blue/10 dark:bg-netconnect-mint/10 flex items-center justify-center mr-3 group-hover:bg-netconnect-blue/20 dark:group-hover:bg-netconnect-mint/20 transition-colors">
                         <Github className="w-4 h-4 text-netconnect-blue dark:text-netconnect-mint" />
                       </div>
                       <span>github.com/sarahanderson</span>
                     </a>
-                    <a href="#" className="flex items-center text-netconnect-blue dark:text-netconnect-mint hover:underline group">
+                    <a href="#" className="flex items-center text-netconnect-blue dark:text-netconnect-mint hover:underline focus-ring rounded-md group">
                       <div className="w-8 h-8 rounded-full bg-netconnect-blue/10 dark:bg-netconnect-mint/10 flex items-center justify-center mr-3 group-hover:bg-netconnect-blue/20 dark:group-hover:bg-netconnect-mint/20 transition-colors">
                         <Link className="w-4 h-4 text-netconnect-blue dark:text-netconnect-mint" />
                       </div>

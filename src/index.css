@@ -104,67 +104,76 @@
 }
 
 @layer components {
+  /* Button styles with consistent hover and active states */
   .btn-primary {
-    @apply bg-netconnect-blue text-white hover:bg-opacity-90 font-medium rounded-lg py-2.5 px-4 transition-all duration-300 shadow-button hover:shadow-button-hover;
+    @apply bg-netconnect-blue text-white hover:bg-opacity-90 active:bg-opacity-85 focus-visible:ring-2 focus-visible:ring-netconnect-blue focus-visible:ring-offset-2 font-medium rounded-lg py-2.5 px-4 transition-all duration-300 shadow-button hover:shadow-button-hover;
   }
 
   .btn-secondary {
-    @apply bg-netconnect-mint text-white hover:bg-opacity-90 font-medium rounded-lg py-2.5 px-4 transition-all duration-300 shadow-button hover:shadow-button-hover;
+    @apply bg-netconnect-mint text-white hover:bg-opacity-90 active:bg-opacity-85 focus-visible:ring-2 focus-visible:ring-netconnect-mint focus-visible:ring-offset-2 font-medium rounded-lg py-2.5 px-4 transition-all duration-300 shadow-button hover:shadow-button-hover;
   }
 
   .btn-accent {
-    @apply bg-netconnect-lilac text-white hover:bg-opacity-90 font-medium rounded-lg py-2.5 px-4 transition-all duration-300 shadow-button hover:shadow-button-hover;
+    @apply bg-netconnect-lilac text-white hover:bg-opacity-90 active:bg-opacity-85 focus-visible:ring-2 focus-visible:ring-netconnect-lilac focus-visible:ring-offset-2 font-medium rounded-lg py-2.5 px-4 transition-all duration-300 shadow-button hover:shadow-button-hover;
   }
 
   .btn-coral {
-    @apply bg-netconnect-coral text-white hover:bg-opacity-90 font-medium rounded-lg py-2.5 px-4 transition-all duration-300 shadow-button hover:shadow-button-hover;
+    @apply bg-netconnect-coral text-white hover:bg-opacity-90 active:bg-opacity-85 focus-visible:ring-2 focus-visible:ring-netconnect-coral focus-visible:ring-offset-2 font-medium rounded-lg py-2.5 px-4 transition-all duration-300 shadow-button hover:shadow-button-hover;
   }
 
+  /* Enhanced card with consistent transitions and better hover effect */
   .card {
-    @apply bg-white dark:bg-netconnect-dark-card rounded-xl shadow-card hover:shadow-card-hover transition-shadow duration-300 overflow-hidden border border-gray-100 dark:border-gray-800;
+    @apply bg-white dark:bg-netconnect-dark-card rounded-xl shadow-card hover:shadow-card-hover transition-all duration-300 overflow-hidden border border-gray-100 dark:border-gray-800;
   }
 
+  /* Refined chip styles with consistent states */
   .filter-chip {
-    @apply rounded-full px-4 py-1.5 text-sm font-medium bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 transition-colors cursor-pointer;
+    @apply rounded-full px-4 py-1.5 text-sm font-medium bg-gray-100 hover:bg-gray-200 active:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700 dark:active:bg-gray-600 transition-colors cursor-pointer;
   }
 
   .filter-chip.active {
-    @apply bg-netconnect-blue text-white hover:bg-netconnect-blue hover:bg-opacity-90;
+    @apply bg-netconnect-blue text-white hover:bg-netconnect-blue hover:bg-opacity-90 active:bg-opacity-85;
   }
 
+  /* Consistent badge styles */
   .badge {
-    @apply text-xs font-medium px-2.5 py-1 rounded-full;
+    @apply text-xs font-medium px-2.5 py-1 rounded-full transition-all duration-200;
   }
 
   .badge-open {
-    @apply bg-netconnect-mint bg-opacity-20 text-netconnect-mint;
+    @apply bg-netconnect-mint bg-opacity-20 text-netconnect-mint hover:bg-opacity-30;
   }
 
   .badge-hiring {
-    @apply bg-netconnect-lilac bg-opacity-20 text-netconnect-lilac;
+    @apply bg-netconnect-lilac bg-opacity-20 text-netconnect-lilac hover:bg-opacity-30;
   }
 
+  /* Avatar with consistent styling */
   .avatar {
-    @apply rounded-full object-cover;
+    @apply rounded-full object-cover border-2 border-white dark:border-gray-800 shadow-sm;
   }
   
+  /* Navigation links with consistent hover/focus states */
   .nav-link {
-    @apply font-work-sans text-gray-700 dark:text-gray-300 hover:text-netconnect-blue dark:hover:text-netconnect-mint transition-colors;
+    @apply font-work-sans text-gray-700 dark:text-gray-300 hover:text-netconnect-blue dark:hover:text-netconnect-mint focus:text-netconnect-blue dark:focus:text-netconnect-mint focus:outline-none focus-visible:ring-2 focus-visible:ring-netconnect-blue dark:focus-visible:ring-netconnect-mint focus-visible:ring-offset-2 transition-colors;
   }
 
+  /* Interaction components with consistent states */
   .post-interaction {
-    @apply flex items-center gap-1.5 text-gray-500 hover:text-netconnect-blue dark:hover:text-netconnect-mint transition-colors cursor-pointer;
+    @apply flex items-center gap-1.5 text-gray-500 hover:text-netconnect-blue dark:hover:text-netconnect-mint active:scale-95 transition-all duration-200 cursor-pointer;
   }
 
+  /* Hover glow with more refined effect */
   .hover-glow {
     @apply transition-all duration-300 hover:shadow-[0_0_10px_rgba(31,58,147,0.3)] dark:hover:shadow-[0_0_10px_rgba(26,188,156,0.3)];
   }
 
+  /* Job apply button with consistent animation */
   .job-apply-btn {
-    @apply bg-netconnect-blue text-white hover:bg-opacity-90 font-medium rounded-lg py-2 px-4 transition-all duration-300 flex items-center gap-2 hover:animate-bounce-subtle;
+    @apply bg-netconnect-blue text-white hover:bg-opacity-90 active:bg-opacity-85 font-medium rounded-lg py-2 px-4 transition-all duration-300 flex items-center gap-2 hover:animate-bounce-subtle focus-visible:ring-2 focus-visible:ring-netconnect-blue focus-visible:ring-offset-2;
   }
   
-  /* Add scrollbar-none utility */
+  /* Scrollbar utilities */
   .scrollbar-none {
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -174,7 +183,7 @@
     display: none;
   }
   
-  /* Add animation-fade-in utility */
+  /* Animation utilities */
   @keyframes fade-in {
     from {
       opacity: 0;
@@ -188,5 +197,25 @@
   
   .animate-fade-in {
     animation: fade-in 0.3s ease-out;
+  }
+
+  /* Glassmorphism utility */
+  .glassmorphism {
+    @apply backdrop-blur-md bg-white/10 dark:bg-black/10 border border-white/20 dark:border-white/10;
+  }
+
+  /* Focus ring utility */
+  .focus-ring {
+    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-netconnect-blue dark:focus-visible:ring-netconnect-mint focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-900;
+  }
+
+  /* Consistent interactive elements */
+  .interactive-icon {
+    @apply hover:text-netconnect-blue dark:hover:text-netconnect-mint active:scale-95 transition-all duration-200;
+  }
+
+  /* Tooltip consistent styling */
+  .tooltip {
+    @apply absolute invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-opacity bg-gray-800 dark:bg-gray-700 text-white text-xs rounded py-1 px-2 -mt-10 left-1/2 transform -translate-x-1/2 z-10;
   }
 }

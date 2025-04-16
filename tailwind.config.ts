@@ -106,6 +106,18 @@ export default {
 				'ping-slow': {
 					'75%, 100%': { transform: 'scale(1.5)', opacity: '0' },
 				},
+				'float': {
+					'0%, 100%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-5px)' },
+				},
+				'pulse-ring': {
+					'0%': { transform: 'scale(0.95)', boxShadow: '0 0 0 0 rgba(26, 188, 156, 0.7)' },
+					'70%': { transform: 'scale(1)', boxShadow: '0 0 0 10px rgba(26, 188, 156, 0)' },
+					'100%': { transform: 'scale(0.95)', boxShadow: '0 0 0 0 rgba(26, 188, 156, 0)' },
+				},
+				'shimmer': {
+					'100%': { transform: 'translateX(100%)' },
+				},
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
@@ -113,12 +125,25 @@ export default {
 				'pulse-gentle': 'pulse-gentle 2s infinite ease-in-out',
 				'bounce-subtle': 'bounce-subtle 1s infinite ease-in-out',
 				'ping-slow': 'ping-slow 2s cubic-bezier(0, 0, 0.2, 1) infinite',
+				'float': 'float 3s infinite ease-in-out',
+				'pulse-ring': 'pulse-ring 2s infinite cubic-bezier(0.66, 0, 0, 1)',
+				'shimmer': 'shimmer 2s infinite linear',
 			},
 			boxShadow: {
 				'card': '0 4px 6px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.08)',
 				'card-hover': '0 10px 20px rgba(0, 0, 0, 0.06), 0 4px 6px rgba(0, 0, 0, 0.1)',
 				'button': '0 2px 5px rgba(0, 0, 0, 0.1)',
 				'button-hover': '0 4px 10px rgba(0, 0, 0, 0.15)',
+				'avatar': '0 0 0 3px rgba(255, 255, 255, 1), 0 0 0 6px rgba(31, 58, 147, 0.3)',
+				'avatar-dark': '0 0 0 3px rgba(30, 30, 30, 1), 0 0 0 6px rgba(26, 188, 156, 0.3)',
+				'focus-ring': '0 0 0 2px rgba(31, 58, 147, 0.5)',
+				'focus-ring-dark': '0 0 0 2px rgba(26, 188, 156, 0.5)',
+			},
+			transitionDuration: {
+				'400': '400ms',
+			},
+			transitionTimingFunction: {
+				'bounce': 'cubic-bezier(0.68, -0.55, 0.265, 1.55)',
 			},
 		}
 	},
