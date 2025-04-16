@@ -1,4 +1,5 @@
-import { Award, Briefcase, Calendar, Clock, ExternalLink, FileText, Github, Globe, GraduationCap, Link, MapPin, PenSquare, PlusCircle, Twitter } from "lucide-react";
+
+import { Award, Briefcase, Calendar, Clock, ExternalLink, FileText, Github, Globe, GraduationCap, Link, Mail, MapPin, PenSquare, PlusCircle, Twitter, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
@@ -6,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const ProfileScreen = () => {
   const [following, setFollowing] = useState(false);
@@ -41,17 +43,31 @@ const ProfileScreen = () => {
   return (
     <div className="max-w-3xl mx-auto pb-8">
       <div className="relative mb-24">
+        {/* Enhanced background with layered gradients and pattern */}
         <div className="h-44 bg-gradient-to-r from-netconnect-blue via-netconnect-lilac to-purple-500 rounded-b-3xl overflow-hidden relative">
+          {/* Mesh gradient background */}
           <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1639322537504-6427a16b0a28?q=80&w=1000')] bg-cover bg-center opacity-10"></div>
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/30"></div>
+          {/* Subtle noise pattern overlay */}
+          <div className="absolute inset-0 bg-gradient-to-r from-purple-900/20 to-indigo-900/20 mix-blend-overlay"></div>
+          {/* Particles/tech pattern effect */}
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1IiBoZWlnaHQ9IjUiPgo8cmVjdCB3aWR0aD0iNSIgaGVpZ2h0PSI1IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiPjwvcmVjdD4KPHBhdGggZD0iTTAgNUw1IDBaTTYgNEw0IDZaTS0xIDFMMSAtMVoiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLW9wYWNpdHk9IjAuMDgiPjwvcGF0aD4KPC9zdmc+')] opacity-20"></div>
+          {/* Enhanced gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50"></div>
           <div className="absolute bottom-0 w-full h-8 bg-gradient-to-t from-netconnect-white dark:from-netconnect-dark to-transparent"></div>
         </div>
         
+        {/* Enhanced Avatar with glowing border and status indicator */}
         <div className="absolute -bottom-20 left-10 rounded-full p-1 bg-white dark:bg-netconnect-dark-card shadow-lg">
           <div className="p-1 rounded-full relative group">
             <div className="absolute inset-0 rounded-full bg-gradient-to-r from-netconnect-blue via-netconnect-lilac to-netconnect-mint opacity-70 group-hover:opacity-100 blur-sm group-hover:blur-md transition-all duration-300"></div>
             <div className="relative rounded-full p-0.5 bg-gradient-to-r from-netconnect-blue to-netconnect-lilac">
-              <div className="absolute top-0 right-0 -mr-1 -mt-1 w-5 h-5 bg-green-500 border-2 border-white dark:border-netconnect-dark-card rounded-full z-10" title="Available for work"></div>
+              {/* Enhanced status indicator with pulse animation */}
+              <div className="absolute top-0 right-0 -mr-1 -mt-1 z-10">
+                <span className="relative flex h-5 w-5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-50"></span>
+                  <span className="relative inline-flex rounded-full h-5 w-5 bg-green-500 border-2 border-white dark:border-netconnect-dark-card shadow-[0_0_10px_rgba(74,222,128,0.5)]"></span>
+                </span>
+              </div>
               <img 
                 src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" 
                 alt="Profile" 
@@ -59,34 +75,38 @@ const ProfileScreen = () => {
               />
             </div>
           </div>
+          
+          {/* Edit profile floating button over avatar */}
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={handleEditProfile}
+            className="absolute -top-2 -right-2 bg-white/90 dark:bg-netconnect-dark-card/90 backdrop-blur-sm h-8 w-8 rounded-full shadow-md hover:shadow-lg transition-all duration-300"
+          >
+            <PenSquare className="h-4 w-4 text-netconnect-blue dark:text-netconnect-mint" />
+          </Button>
         </div>
         
-        <div className="absolute right-6 -bottom-10 space-x-2 flex items-center">
-          <Button 
-            variant="outline" 
-            size="sm" 
-            onClick={handleEditProfile} 
-            className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm hover:bg-white hover:shadow-md dark:hover:bg-gray-700 transition-all duration-300"
-          >
-            <PenSquare className="w-4 h-4 mr-2" />
-            Edit Profile
-          </Button>
+        {/* Redesigned action buttons */}
+        <div className="absolute right-6 -bottom-10 space-x-3 flex items-center">
           <Button 
             className={cn(
-              "transition-all duration-300 shadow hover:shadow-lg hover:translate-y-[-2px]",
+              "transition-all duration-300 shadow-md hover:shadow-lg hover:translate-y-[-2px] gap-2",
               following 
                 ? "bg-gray-200 text-gray-800 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600" 
                 : "bg-netconnect-blue hover:bg-netconnect-blue/90 text-white"
             )}
             onClick={handleConnect}
           >
+            <Users className="w-4 h-4" />
             {following ? "Connected" : "Connect"}
           </Button>
           <Button 
             variant="outline" 
             onClick={handleMessage} 
-            className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm hover:bg-white hover:shadow-md dark:hover:bg-gray-700 transition-all duration-300"
+            className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm hover:bg-white hover:shadow-md dark:hover:bg-gray-700 transition-all duration-300 gap-2"
           >
+            <Mail className="w-4 h-4" />
             Message
           </Button>
         </div>
@@ -96,70 +116,79 @@ const ProfileScreen = () => {
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
           <div>
             <h1 className="text-2xl md:text-3xl font-bold mb-1">Sarah Anderson</h1>
-            <p className="text-netconnect-blue dark:text-netconnect-mint font-medium mb-1">UX/UI Designer & Product Strategist</p>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 italic">"Let's build the future of design together 💡"</p>
-            <div className="flex flex-wrap items-center text-gray-500 dark:text-gray-400 text-sm mb-3 gap-y-1">
-              <div className="flex items-center mr-4">
-                <MapPin className="w-4 h-4 mr-1" />
+            <p className="text-netconnect-blue dark:text-netconnect-mint font-medium mb-2">UX/UI Designer & Product Strategist</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-3 italic">"Let's build the future of design together 💡"</p>
+            <div className="flex flex-wrap items-center text-gray-500 dark:text-gray-400 text-sm mb-3 gap-y-2 gap-x-4">
+              <div className="flex items-center">
+                <div className="w-6 h-6 rounded-full bg-netconnect-blue/10 dark:bg-netconnect-mint/10 flex items-center justify-center mr-2">
+                  <MapPin className="w-3.5 h-3.5 text-netconnect-blue dark:text-netconnect-mint" />
+                </div>
                 <span>San Francisco, CA</span>
               </div>
-              <div className="flex items-center mr-4">
-                <Briefcase className="w-4 h-4 mr-1" />
+              <div className="flex items-center">
+                <div className="w-6 h-6 rounded-full bg-netconnect-blue/10 dark:bg-netconnect-mint/10 flex items-center justify-center mr-2">
+                  <Briefcase className="w-3.5 h-3.5 text-netconnect-blue dark:text-netconnect-mint" />
+                </div>
                 <span>FutureUI Studio</span>
               </div>
               <div className="flex items-center">
-                <Clock className="w-4 h-4 mr-1" />
+                <div className="w-6 h-6 rounded-full bg-netconnect-blue/10 dark:bg-netconnect-mint/10 flex items-center justify-center mr-2">
+                  <Clock className="w-3.5 h-3.5 text-netconnect-blue dark:text-netconnect-mint" />
+                </div>
                 <span>5+ years experience</span>
               </div>
             </div>
-            <div className="flex items-center space-x-2 mb-2">
-              <Badge className="bg-green-500 text-white border-none flex items-center gap-1 shadow-sm hover:shadow-md transition-shadow duration-300">
+            
+            {/* Badges with enhanced hover effects and horizontal scroll */}
+            <div className="flex items-center space-x-2 mb-2 overflow-x-auto pb-2 scrollbar-none">
+              <Badge className="bg-green-500 text-white border-none flex items-center gap-1 shadow-sm hover:shadow-lg transition-shadow duration-300 hover:bg-green-400">
                 <Globe className="w-3 h-3" />
                 <span>Open to Work</span>
               </Badge>
-              <Badge className="bg-teal-500 text-white border-none flex items-center gap-1 shadow-sm hover:shadow-md transition-shadow duration-300">
+              <Badge className="bg-teal-500 text-white border-none flex items-center gap-1 shadow-sm hover:shadow-lg transition-shadow duration-300 hover:bg-teal-400">
                 <MapPin className="w-3 h-3" />
                 <span>Remote</span>
               </Badge>
-              <Badge variant="outline" className="border-gray-300 dark:border-gray-600 flex items-center gap-1">
+              <Badge variant="outline" className="border-gray-300 dark:border-gray-600 flex items-center gap-1 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
                 <Award className="w-3 h-3" />
                 <span>Top Professional</span>
               </Badge>
-              <Badge variant="outline" className="border-gray-300 dark:border-gray-600 flex items-center gap-1 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
+              <Badge variant="outline" className="border-gray-300 dark:border-gray-600 flex items-center gap-1 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
                 <span>+2 more</span>
               </Badge>
             </div>
           </div>
         </div>
         
+        {/* Enhanced sticky tabs with animation */}
         <div className={cn(
-          "transition-all duration-300",
-          isScrolled ? "sticky top-0 z-10 bg-white/80 dark:bg-netconnect-dark/80 backdrop-blur-md shadow-md py-2" : ""
+          "transition-all duration-300 z-10",
+          isScrolled ? "sticky top-0 bg-white/90 dark:bg-netconnect-dark/90 backdrop-blur-md shadow-md py-2 px-2 -mx-2 rounded-md" : ""
         )}>
           <Tabs defaultValue="about" value={activeTab} onValueChange={setActiveTab} className="space-y-6">
             <div className="overflow-x-auto scrollbar-none">
               <TabsList className="border-b w-full justify-start bg-transparent min-w-max">
                 <TabsTrigger 
                   value="about" 
-                  className="relative rounded-none data-[state=active]:border-b-0 data-[state=active]:after:content-[''] data-[state=active]:after:absolute data-[state=active]:after:bottom-0 data-[state=active]:after:left-0 data-[state=active]:after:h-0.5 data-[state=active]:after:w-full data-[state=active]:after:bg-gradient-to-r data-[state=active]:after:from-netconnect-blue data-[state=active]:after:to-netconnect-lilac data-[state=active]:text-netconnect-blue dark:data-[state=active]:text-netconnect-mint transition-all"
+                  className="relative rounded-none data-[state=active]:border-b-0 data-[state=active]:after:content-[''] data-[state=active]:after:absolute data-[state=active]:after:bottom-0 data-[state=active]:after:left-0 data-[state=active]:after:h-0.5 data-[state=active]:after:w-full data-[state=active]:after:bg-gradient-to-r data-[state=active]:after:from-netconnect-blue data-[state=active]:after:to-netconnect-lilac data-[state=active]:text-netconnect-blue dark:data-[state=active]:text-netconnect-mint transition-all hover:text-netconnect-blue/80 dark:hover:text-netconnect-mint/80"
                 >
                   About
                 </TabsTrigger>
                 <TabsTrigger 
                   value="portfolio" 
-                  className="relative rounded-none data-[state=active]:border-b-0 data-[state=active]:after:content-[''] data-[state=active]:after:absolute data-[state=active]:after:bottom-0 data-[state=active]:after:left-0 data-[state=active]:after:h-0.5 data-[state=active]:after:w-full data-[state=active]:after:bg-gradient-to-r data-[state=active]:after:from-netconnect-blue data-[state=active]:after:to-netconnect-lilac data-[state=active]:text-netconnect-blue dark:data-[state=active]:text-netconnect-mint transition-all"
+                  className="relative rounded-none data-[state=active]:border-b-0 data-[state=active]:after:content-[''] data-[state=active]:after:absolute data-[state=active]:after:bottom-0 data-[state=active]:after:left-0 data-[state=active]:after:h-0.5 data-[state=active]:after:w-full data-[state=active]:after:bg-gradient-to-r data-[state=active]:after:from-netconnect-blue data-[state=active]:after:to-netconnect-lilac data-[state=active]:text-netconnect-blue dark:data-[state=active]:text-netconnect-mint transition-all hover:text-netconnect-blue/80 dark:hover:text-netconnect-mint/80"
                 >
                   Portfolio
                 </TabsTrigger>
                 <TabsTrigger 
                   value="experience" 
-                  className="relative rounded-none data-[state=active]:border-b-0 data-[state=active]:after:content-[''] data-[state=active]:after:absolute data-[state=active]:after:bottom-0 data-[state=active]:after:left-0 data-[state=active]:after:h-0.5 data-[state=active]:after:w-full data-[state=active]:after:bg-gradient-to-r data-[state=active]:after:from-netconnect-blue data-[state=active]:after:to-netconnect-lilac data-[state=active]:text-netconnect-blue dark:data-[state=active]:text-netconnect-mint transition-all"
+                  className="relative rounded-none data-[state=active]:border-b-0 data-[state=active]:after:content-[''] data-[state=active]:after:absolute data-[state=active]:after:bottom-0 data-[state=active]:after:left-0 data-[state=active]:after:h-0.5 data-[state=active]:after:w-full data-[state=active]:after:bg-gradient-to-r data-[state=active]:after:from-netconnect-blue data-[state=active]:after:to-netconnect-lilac data-[state=active]:text-netconnect-blue dark:data-[state=active]:text-netconnect-mint transition-all hover:text-netconnect-blue/80 dark:hover:text-netconnect-mint/80"
                 >
                   Experience
                 </TabsTrigger>
                 <TabsTrigger 
                   value="education" 
-                  className="relative rounded-none data-[state=active]:border-b-0 data-[state=active]:after:content-[''] data-[state=active]:after:absolute data-[state=active]:after:bottom-0 data-[state=active]:after:left-0 data-[state=active]:after:h-0.5 data-[state=active]:after:w-full data-[state=active]:after:bg-gradient-to-r data-[state=active]:after:from-netconnect-blue data-[state=active]:after:to-netconnect-lilac data-[state=active]:text-netconnect-blue dark:data-[state=active]:text-netconnect-mint transition-all"
+                  className="relative rounded-none data-[state=active]:border-b-0 data-[state=active]:after:content-[''] data-[state=active]:after:absolute data-[state=active]:after:bottom-0 data-[state=active]:after:left-0 data-[state=active]:after:h-0.5 data-[state=active]:after:w-full data-[state=active]:after:bg-gradient-to-r data-[state=active]:after:from-netconnect-blue data-[state=active]:after:to-netconnect-lilac data-[state=active]:text-netconnect-blue dark:data-[state=active]:text-netconnect-mint transition-all hover:text-netconnect-blue/80 dark:hover:text-netconnect-mint/80"
                 >
                   Education
                 </TabsTrigger>
@@ -223,6 +252,7 @@ const ProfileScreen = () => {
             
             <TabsContent value="portfolio" className="space-y-4 animate-fade-in">
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                {/* Enhanced portfolio cards with better hover effects */}
                 <div className="relative group rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300">
                   <img 
                     src="https://images.unsplash.com/photo-1558655146-9f40138edfeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80" 
