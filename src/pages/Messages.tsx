@@ -7,6 +7,16 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
+// First, let's update the message type to make day optional
+interface Message {
+  id: number;
+  sender: string;
+  text: string;
+  time: string;
+  isUser: boolean;
+  day?: string;
+}
+
 const conversations = [
   {
     id: 1,
@@ -82,56 +92,63 @@ const conversations = [
   }
 ];
 
-const messagesData = {
+const messagesData: Record<number, Message[]> = {
   1: [
     {
       id: 1,
       sender: "Sarah Parker",
       text: "Hi, are you available for a quick call today?",
       time: "10:32 AM",
-      isUser: false
+      isUser: false,
+      day: "Today"
     },
     {
       id: 2,
       sender: "You",
       text: "Sure, that works for me! What time were you thinking?",
       time: "10:35 AM",
-      isUser: true
+      isUser: true,
+      day: "Today"
     },
     {
       id: 3,
       sender: "Sarah Parker",
       text: "Great! How about 3:00 PM your time? I'd like to discuss the design revisions for the project.",
       time: "10:36 AM",
-      isUser: false
+      isUser: false,
+      day: "Today"
     },
     {
       id: 4,
       sender: "You",
       text: "3:00 PM works perfectly. I'll send you a calendar invite with the meeting details.",
       time: "10:38 AM",
-      isUser: true
+      isUser: true,
+      day: "Today"
     },
     {
       id: 5,
       sender: "Sarah Parker",
       text: "Sounds good, looking forward to it!",
       time: "10:39 AM",
-      isUser: false
+      isUser: false,
+      day: "Today"
     },
     {
       id: 6,
       sender: "Sarah Parker",
       text: "Oh, one more thing - could you share the latest mockups before our call? It would help me prepare.",
       time: "10:42 AM",
-      isUser: false
+      isUser: false,
+      day: "Today"
     },
     {
       id: 7,
       sender: "You",
       text: "Of course! I'll upload them to our shared drive and send you the link.",
       time: "10:45 AM",
-      isUser: true
+      isUser: true,
+      day: "Today"
     }
   ],
   2: [
@@ -140,42 +157,48 @@ const messagesData = {
       sender: "Alex Johnson",
       text: "Hey, I was looking at the project timeline and I think we might need to adjust some deadlines.",
       time: "09:15 AM",
-      isUser: false
+      isUser: false,
+      day: "Today"
     },
     {
       id: 2,
       sender: "You",
       text: "I noticed that too. Which milestones are you concerned about?",
       time: "09:20 AM",
-      isUser: true
+      isUser: true,
+      day: "Today"
     },
     {
       id: 3,
       sender: "Alex Johnson",
       text: "Mainly the user testing phase. I think we need at least another week for that, considering the feedback from the stakeholders.",
       time: "09:22 AM",
-      isUser: false
+      isUser: false,
+      day: "Today"
     },
     {
       id: 4,
       sender: "You",
       text: "That makes sense. Let me look at how we can adjust the schedule without impacting the final delivery date.",
       time: "09:25 AM",
-      isUser: true
+      isUser: true,
+      day: "Today"
     },
     {
       id: 5,
       sender: "Alex Johnson",
       text: "Perfect. Can we discuss the project timeline in more detail soon?",
       time: "09:27 AM",
-      isUser: false
+      isUser: false,
+      day: "Today"
     },
     {
       id: 6,
       sender: "You",
       text: "Definitely. I'm free tomorrow afternoon if that works for you?",
       time: "09:30 AM",
-      isUser: true
+      isUser: true,
+      day: "Today"
     }
   ],
   3: [
@@ -184,35 +207,40 @@ const messagesData = {
       sender: "Jessica Williams",
       text: "Hi there! I wanted to thank you for introducing me to the team at InnovateTech. We had a great initial conversation.",
       time: "2:45 PM",
-      isUser: false
+      isUser: false,
+      day: "Today"
     },
     {
       id: 2,
       sender: "You",
       text: "That's wonderful to hear! I thought you two would hit it off. How did the meeting go?",
       time: "2:50 PM",
-      isUser: true
+      isUser: true,
+      day: "Today"
     },
     {
       id: 3,
       sender: "Jessica Williams",
       text: "It went really well! They're interested in my proposal and we're scheduled for a follow-up next week to discuss details.",
       time: "2:52 PM",
-      isUser: false
+      isUser: false,
+      day: "Today"
     },
     {
       id: 4,
       sender: "You",
       text: "That's fantastic news! Let me know if you need any support preparing for the next meeting.",
       time: "2:55 PM",
-      isUser: true
+      isUser: true,
+      day: "Today"
     },
     {
       id: 5,
       sender: "Jessica Williams",
       text: "Thanks for the introduction!",
       time: "3:00 PM",
-      isUser: false
+      isUser: false,
+      day: "Today"
     }
   ],
   4: [
