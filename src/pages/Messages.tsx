@@ -1,11 +1,20 @@
 
 import { useState } from "react";
 import Navbar from "../components/Navbar";
-import { Search, Send, Phone, Video, MoreHorizontal, Image, Paperclip, Smile, Mic, Filter, Check, Clock, Plus, ChevronDown, MessageSquare } from "lucide-react";
+import { Search, Send, Phone, Video, MoreHorizontal, Image, Paperclip, Smile, Mic, Filter, Check, Clock, Plus, ChevronDown, MessageSquare, Mail } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 // First, let's update the message type to make day optional
 interface Message {
@@ -348,7 +357,7 @@ const Messages = () => {
   };
 
   return (
-    <div className="min-h-screen bg-netconnect-white dark:bg-netconnect-dark">
+    <div className="min-h-screen bg-netconnect-white dark:bg-netconnect-dark bg-gradient-to-br from-gray-900 via-purple-900/30 to-gray-900">
       <Navbar />
       <div className="container mx-auto py-6 px-4">
         <div className="mb-6">
@@ -356,19 +365,45 @@ const Messages = () => {
           <p className="text-gray-500 dark:text-gray-400">Connect with your professional network</p>
         </div>
         
-        <div className="flex h-[calc(100vh-12rem)] rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 shadow-sm">
+        <div className="flex h-[calc(100vh-12rem)] rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700/50 shadow-lg backdrop-blur-sm bg-white/5 dark:bg-gray-900/40">
           {/* Conversations Sidebar */}
-          <div className="w-full sm:w-1/3 md:w-1/4 bg-white dark:bg-netconnect-dark-card border-r border-gray-200 dark:border-gray-800 flex flex-col">
-            <div className="p-4 border-b border-gray-200 dark:border-gray-800">
+          <div className="w-full sm:w-1/3 md:w-1/4 bg-white/80 dark:bg-gray-900/80 border-r border-gray-200 dark:border-gray-800/50 flex flex-col relative">
+            {/* Shadow overlay for scroll effect */}
+            <div className="absolute top-0 left-0 right-0 h-4 bg-gradient-to-b from-white dark:from-gray-900 to-transparent z-10 pointer-events-none"></div>
+            
+            <div className="p-4 border-b border-gray-200 dark:border-gray-800/50 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm sticky top-0 z-10">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="font-semibold">Inbox</h3>
-                <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => setFilterOpen(!filterOpen)}>
-                  <Filter className="h-4 w-4" />
-                </Button>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="ghost" size="icon" className="h-8 w-8 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors">
+                            <Filter className="h-4 w-4" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end" className="w-56">
+                          <DropdownMenuLabel>Filter Messages</DropdownMenuLabel>
+                          <DropdownMenuSeparator />
+                          <DropdownMenuItem className="cursor-pointer">
+                            <Check className="mr-2 h-4 w-4" /> Unread
+                          </DropdownMenuItem>
+                          <DropdownMenuItem className="cursor-pointer">
+                            <Clock className="mr-2 h-4 w-4" /> Recent
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Filter Messages</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               </div>
               
               {filterOpen && (
-                <div className="mb-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                <div className="mb-3 p-3 bg-gray-50 dark:bg-gray-800/70 rounded-lg">
                   <h4 className="text-xs font-medium mb-2">FILTER MESSAGES</h4>
                   <div className="flex flex-wrap gap-2">
                     <Badge variant="outline" className="cursor-pointer bg-netconnect-blue/10 text-netconnect-blue dark:text-netconnect-mint border-netconnect-blue/20 dark:border-netconnect-mint/20">
@@ -386,121 +421,190 @@ const Messages = () => {
                 <input
                   type="text"
                   placeholder="Search messages..."
-                  className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-netconnect-blue dark:focus:ring-netconnect-mint text-sm"
+                  className="w-full pl-10 pr-4 py-2 rounded-full border border-gray-200 dark:border-gray-700/70 focus:outline-none focus:ring-2 focus:ring-netconnect-blue dark:focus:ring-netconnect-mint focus:border-transparent text-sm bg-white/80 dark:bg-gray-800/50 backdrop-blur-sm transition-all"
                 />
               </div>
             </div>
             
-            <div className="flex-1 overflow-y-auto">
-              {conversations.map((conversation) => (
-                <button
-                  key={conversation.id}
-                  className={`w-full text-left p-4 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors ${
-                    selectedChat === conversation.id ? "bg-gray-50 dark:bg-gray-800" : ""
-                  }`}
-                  onClick={() => setSelectedChat(conversation.id)}
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="relative">
-                      <Avatar className="h-12 w-12">
-                        <AvatarImage src={conversation.avatar} />
-                        <AvatarFallback>{conversation.name.charAt(0)}</AvatarFallback>
-                      </Avatar>
-                      {conversation.online && (
-                        <span className="absolute bottom-0 right-0 h-3 w-3 rounded-full bg-green-500 border-2 border-white dark:border-netconnect-dark-card"></span>
+            <div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-700">
+              {conversations.length > 0 ? (
+                conversations.map((conversation) => (
+                  <button
+                    key={conversation.id}
+                    className={`w-full text-left p-4 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors border-b border-gray-100 dark:border-gray-800/30 ${
+                      selectedChat === conversation.id ? "bg-gray-50 dark:bg-gray-800/70" : ""
+                    }`}
+                    onClick={() => setSelectedChat(conversation.id)}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="relative">
+                        <Avatar className="h-12 w-12 ring-2 ring-white/10 dark:ring-gray-800/70 hover:ring-netconnect-blue/20 dark:hover:ring-netconnect-mint/20 transition-all">
+                          <AvatarImage src={conversation.avatar} />
+                          <AvatarFallback>{conversation.name.charAt(0)}</AvatarFallback>
+                        </Avatar>
+                        {conversation.online && (
+                          <span className="absolute bottom-0 right-0 h-3 w-3 rounded-full bg-green-500 border-2 border-white dark:border-gray-900 shadow-[0_0_10px_rgba(34,197,94,0.5)]"></span>
+                        )}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex justify-between items-center mb-1">
+                          <h4 className={`font-medium truncate ${conversation.unread > 0 ? 'text-white font-semibold' : 'text-gray-800 dark:text-gray-200'}`}>
+                            {conversation.name}
+                            {conversation.unread > 0 && (
+                              <span className="inline-block w-2 h-2 bg-netconnect-coral rounded-full ml-2 animate-pulse"></span>
+                            )}
+                          </h4>
+                          <span className="text-xs text-gray-500">{conversation.time}</span>
+                        </div>
+                        <p className="text-sm text-gray-500 truncate">{conversation.lastMessage}</p>
+                      </div>
+                      {conversation.unread > 0 && (
+                        <Badge className="ml-2 bg-netconnect-coral shadow-[0_0_10px_rgba(255,107,107,0.5)]">{conversation.unread}</Badge>
                       )}
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex justify-between items-center mb-1">
-                        <h4 className="font-medium truncate">{conversation.name}</h4>
-                        <span className="text-xs text-gray-500">{conversation.time}</span>
-                      </div>
-                      <p className="text-sm text-gray-500 truncate">{conversation.lastMessage}</p>
-                    </div>
-                    {conversation.unread > 0 && (
-                      <Badge className="ml-2 bg-netconnect-coral">{conversation.unread}</Badge>
-                    )}
+                  </button>
+                ))
+              ) : (
+                <div className="flex flex-col items-center justify-center h-full p-6 text-center">
+                  <div className="w-16 h-16 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center mb-4">
+                    <MessageSquare className="w-8 h-8 text-gray-400" />
                   </div>
-                </button>
-              ))}
+                  <h3 className="font-semibold text-lg mb-2">No messages yet</h3>
+                  <p className="text-gray-500 dark:text-gray-400 max-w-md">
+                    Start a new conversation to begin connecting
+                  </p>
+                </div>
+              )}
             </div>
             
-            <div className="p-4 border-t border-gray-200 dark:border-gray-800">
-              <Button className="w-full bg-netconnect-blue hover:bg-netconnect-blue/90 text-white">
-                <Plus className="mr-2 h-4 w-4" /> New Message
+            <div className="p-4 border-t border-gray-200 dark:border-gray-800/50 sticky bottom-0 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm">
+              <Button className="w-full bg-netconnect-blue hover:bg-netconnect-blue/90 text-white shadow-[0_4px_14px_rgba(31,58,147,0.4)] hover:shadow-[0_6px_20px_rgba(31,58,147,0.6)] transition-all">
+                <Mail className="mr-2 h-4 w-4" /> New Message
               </Button>
             </div>
           </div>
           
           {/* Chat Area */}
-          <div className="hidden sm:flex sm:w-2/3 md:w-3/4 flex-col bg-gray-50 dark:bg-gray-900">
+          <div className="hidden sm:flex sm:w-2/3 md:w-3/4 flex-col bg-gray-50/30 dark:bg-gray-900/40 backdrop-blur-sm">
             {selectedChat ? (
               <>
                 {/* Chat Header */}
-                <div className="p-4 bg-white dark:bg-netconnect-dark-card border-b border-gray-200 dark:border-gray-800 flex items-center justify-between">
+                <div className="p-4 bg-white/50 dark:bg-gray-900/60 border-b border-gray-200 dark:border-gray-800/50 flex items-center justify-between sticky top-0 backdrop-blur-sm">
                   <div className="flex items-center gap-3">
-                    <Avatar className="h-10 w-10">
+                    <Avatar className="h-10 w-10 ring-2 ring-white/10 dark:ring-gray-800/70">
                       <AvatarImage src={conversations.find(c => c.id === selectedChat)?.avatar} />
                       <AvatarFallback>{conversations.find(c => c.id === selectedChat)?.name.charAt(0) || ''}</AvatarFallback>
                     </Avatar>
                     <div>
                       <h4 className="font-medium">{conversations.find(c => c.id === selectedChat)?.name}</h4>
                       <p className="text-xs text-green-500">
-                        {conversations.find(c => c.id === selectedChat)?.online ? 'Online' : 'Offline'}
+                        {conversations.find(c => c.id === selectedChat)?.online ? (
+                          <span className="flex items-center">
+                            <span className="w-2 h-2 bg-green-500 rounded-full mr-1 animate-pulse"></span>
+                            Online
+                          </span>
+                        ) : 'Offline'}
                       </p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Button variant="ghost" size="icon" className="rounded-full h-9 w-9 text-gray-500">
-                      <Phone className="h-4 w-4" />
-                    </Button>
-                    <Button variant="ghost" size="icon" className="rounded-full h-9 w-9 text-gray-500">
-                      <Video className="h-4 w-4" />
-                    </Button>
-                    <Button variant="ghost" size="icon" className="rounded-full h-9 w-9 text-gray-500">
-                      <MoreHorizontal className="h-4 w-4" />
-                    </Button>
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button variant="ghost" size="icon" className="rounded-full h-9 w-9 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800/70 transition-colors">
+                            <Phone className="h-4 w-4" />
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Voice Call</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                    
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button variant="ghost" size="icon" className="rounded-full h-9 w-9 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800/70 transition-colors">
+                            <Video className="h-4 w-4" />
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Video Call</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                    
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button variant="ghost" size="icon" className="rounded-full h-9 w-9 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800/70 transition-colors">
+                            <MoreHorizontal className="h-4 w-4" />
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>More Options</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
                   </div>
                 </div>
                 
                 {/* Messages */}
-                <div className="flex-1 p-4 overflow-y-auto">
+                <div className="flex-1 p-4 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-700">
                   <div className="space-y-4">
-                    {getMessagesForSelectedChat().map((message) => (
-                      <div 
-                        key={message.id} 
-                        className={`flex gap-3 ${message.isUser ? 'justify-end' : ''}`}
-                      >
-                        {!message.isUser && (
-                          <Avatar className="h-8 w-8">
-                            <AvatarImage src={conversations.find(c => c.id === selectedChat)?.avatar} />
-                            <AvatarFallback>
-                              {conversations.find(c => c.id === selectedChat)?.name.charAt(0) || ''}
-                            </AvatarFallback>
-                          </Avatar>
-                        )}
-                        <div className={`max-w-[70%] ${message.isUser ? 'bg-netconnect-blue text-white' : 'bg-white dark:bg-netconnect-dark-card'} rounded-2xl px-4 py-3 shadow-sm`}>
-                          <p className="text-sm">{message.text}</p>
-                          <span className={`text-[10px] ${message.isUser ? 'text-blue-200' : 'text-gray-500'} block text-right mt-1`}>
-                            {message.time}
-                            {message.day && ` · ${message.day}`}
-                            {message.isUser && <Check className="inline ml-1 h-3 w-3" />}
-                          </span>
+                    {getMessagesForSelectedChat().map((message, index) => {
+                      // Check if this message shows a different day than the previous message
+                      const showDayDivider = index === 0 || 
+                                            message.day !== getMessagesForSelectedChat()[index - 1].day;
+                      
+                      return (
+                        <div key={message.id}>
+                          {showDayDivider && message.day && (
+                            <div className="flex items-center justify-center my-6">
+                              <div className="bg-gray-200 dark:bg-gray-800/70 px-3 py-1 rounded-full text-xs text-gray-500">
+                                {message.day}
+                              </div>
+                            </div>
+                          )}
+                          
+                          <div className={`flex gap-3 ${message.isUser ? 'justify-end' : ''}`}>
+                            {!message.isUser && (
+                              <Avatar className="h-8 w-8 ring-1 ring-white/10 dark:ring-gray-800/70">
+                                <AvatarImage src={conversations.find(c => c.id === selectedChat)?.avatar} />
+                                <AvatarFallback>
+                                  {conversations.find(c => c.id === selectedChat)?.name.charAt(0) || ''}
+                                </AvatarFallback>
+                              </Avatar>
+                            )}
+                            <div 
+                              className={`max-w-[70%] ${
+                                message.isUser 
+                                  ? 'bg-netconnect-blue text-white shadow-[0_4px_14px_rgba(31,58,147,0.2)]' 
+                                  : 'bg-white dark:bg-gray-800/70 shadow-[0_4px_10px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_10px_rgba(0,0,0,0.2)]'
+                              } rounded-2xl px-4 py-3 transition-all hover:shadow-lg`}
+                            >
+                              <p className="text-sm">{message.text}</p>
+                              <span className={`text-[10px] ${message.isUser ? 'text-blue-200' : 'text-gray-500'} block text-right mt-1`}>
+                                {message.time}
+                                {message.isUser && <Check className="inline ml-1 h-3 w-3" />}
+                              </span>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
                 
                 {/* Message Input */}
-                <div className="p-4 bg-white dark:bg-netconnect-dark-card border-t border-gray-200 dark:border-gray-800">
-                  <Card className="p-1">
+                <div className="p-4 bg-white/50 dark:bg-gray-900/60 border-t border-gray-200 dark:border-gray-800/50 sticky bottom-0 backdrop-blur-sm">
+                  <Card className="p-1 border border-gray-200 dark:border-gray-700/50 bg-white/80 dark:bg-gray-800/50 shadow-lg">
                     <CardContent className="p-0">
                       <div className="flex items-center">
                         <div className="flex-1">
                           <textarea
                             placeholder="Type a message..."
-                            className="w-full border-none focus:outline-none focus:ring-0 resize-none py-2 px-3 max-h-20 text-sm"
+                            className="w-full border-none focus:outline-none focus:ring-0 resize-none py-2 px-3 max-h-20 text-sm bg-transparent"
                             value={messageText}
                             onChange={(e) => setMessageText(e.target.value)}
                             onKeyDown={(e) => {
@@ -513,18 +617,49 @@ const Messages = () => {
                           />
                         </div>
                         <div className="flex items-center gap-1 px-2">
-                          <Button variant="ghost" size="icon" className="rounded-full h-8 w-8 text-gray-500">
-                            <Paperclip className="h-4 w-4" />
-                          </Button>
-                          <Button variant="ghost" size="icon" className="rounded-full h-8 w-8 text-gray-500">
-                            <Image className="h-4 w-4" />
-                          </Button>
-                          <Button variant="ghost" size="icon" className="rounded-full h-8 w-8 text-gray-500">
-                            <Smile className="h-4 w-4" />
-                          </Button>
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Button variant="ghost" size="icon" className="rounded-full h-8 w-8 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700/50">
+                                  <Paperclip className="h-4 w-4" />
+                                </Button>
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>Attach File</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                          
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Button variant="ghost" size="icon" className="rounded-full h-8 w-8 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700/50">
+                                  <Image className="h-4 w-4" />
+                                </Button>
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>Share Image</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                          
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Button variant="ghost" size="icon" className="rounded-full h-8 w-8 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700/50">
+                                  <Smile className="h-4 w-4" />
+                                </Button>
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>Add Emoji</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                          
                           <Button 
-                            className="ml-1 h-9 w-9 rounded-full bg-netconnect-blue hover:bg-netconnect-blue/90 p-0"
+                            className="ml-1 h-9 w-9 rounded-full bg-netconnect-blue hover:bg-netconnect-blue/90 p-0 shadow-[0_4px_10px_rgba(31,58,147,0.3)] hover:shadow-[0_4px_14px_rgba(31,58,147,0.5)] transition-all"
                             onClick={handleSendMessage}
+                            disabled={!messageText.trim()}
                           >
                             <Send className="h-4 w-4 text-white" />
                           </Button>
@@ -536,15 +671,15 @@ const Messages = () => {
               </>
             ) : (
               <div className="flex flex-col items-center justify-center h-full p-6 text-center">
-                <div className="w-16 h-16 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center mb-4">
-                  <MessageSquare className="w-8 h-8 text-gray-400" />
+                <div className="w-20 h-20 rounded-full bg-gray-100/50 dark:bg-gray-800/50 flex items-center justify-center mb-4 shadow-inner">
+                  <MessageSquare className="w-10 h-10 text-gray-400" />
                 </div>
                 <h3 className="font-semibold text-xl mb-2">Your Messages</h3>
-                <p className="text-gray-500 dark:text-gray-400 max-w-md">
+                <p className="text-gray-500 dark:text-gray-400 max-w-md mb-6">
                   Select a conversation or start a new one to begin messaging
                 </p>
-                <Button className="mt-6 bg-netconnect-blue hover:bg-netconnect-blue/90 text-white">
-                  <Plus className="mr-2 h-4 w-4" /> New Message
+                <Button className="bg-netconnect-blue hover:bg-netconnect-blue/90 text-white shadow-[0_4px_14px_rgba(31,58,147,0.4)] hover:shadow-[0_6px_20px_rgba(31,58,147,0.6)] transition-all">
+                  <Mail className="mr-2 h-4 w-4" /> New Message
                 </Button>
               </div>
             )}
