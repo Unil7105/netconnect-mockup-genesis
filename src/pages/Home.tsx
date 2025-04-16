@@ -14,6 +14,7 @@ import {
   LineChart, 
   MessageCircle, 
   MessageSquare, 
+  PenSquare,
   PieChart, 
   Plus, 
   Share2, 

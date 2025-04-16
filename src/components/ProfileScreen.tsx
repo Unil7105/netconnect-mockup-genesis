@@ -1,5 +1,4 @@
-
-import { Award, Briefcase, Calendar, Clock, ExternalLink, FileText, GitHub, Globe, GraduationCap, Link, MapPin, PenSquare, PlusCircle, Twitter } from "lucide-react";
+import { Award, Briefcase, Calendar, Clock, ExternalLink, FileText, Github, Globe, GraduationCap, Link, MapPin, PenSquare, PlusCircle, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
@@ -125,7 +124,7 @@ const ProfileScreen = () => {
                     <span>@sarahdesigns</span>
                   </a>
                   <a href="#" className="flex items-center text-netconnect-blue dark:text-netconnect-mint hover:underline">
-                    <GitHub className="w-5 h-5 mr-2" />
+                    <Github className="w-5 h-5 mr-2" />
                     <span>github.com/sarahanderson</span>
                   </a>
                   <a href="#" className="flex items-center text-netconnect-blue dark:text-netconnect-mint hover:underline">
