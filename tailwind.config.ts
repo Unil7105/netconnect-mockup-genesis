@@ -19,6 +19,9 @@ export default {
 			}
 		},
 		extend: {
+			screens: {
+				'xs': '475px',
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -100,12 +103,16 @@ export default {
 					'0%, 100%': { transform: 'translateY(0)' },
 					'50%': { transform: 'translateY(-4px)' },
 				},
+				'ping-slow': {
+					'75%, 100%': { transform: 'scale(1.5)', opacity: '0' },
+				},
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'pulse-gentle': 'pulse-gentle 2s infinite ease-in-out',
 				'bounce-subtle': 'bounce-subtle 1s infinite ease-in-out',
+				'ping-slow': 'ping-slow 2s cubic-bezier(0, 0, 0.2, 1) infinite',
 			},
 			boxShadow: {
 				'card': '0 4px 6px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.08)',

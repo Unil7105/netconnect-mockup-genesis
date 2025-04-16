@@ -8,11 +8,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const ProfileScreen = () => {
   const [following, setFollowing] = useState(false);
   const [activeTab, setActiveTab] = useState("about");
   const [isScrolled, setIsScrolled] = useState(false);
+  const isMobile = useIsMobile();
   
   useEffect(() => {
     const handleScroll = () => {
@@ -41,10 +43,10 @@ const ProfileScreen = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto pb-8">
-      <div className="relative mb-24">
+    <div className="w-full mx-auto pb-8 px-4 sm:px-6">
+      <div className="relative mb-24 sm:mb-28">
         {/* Enhanced background with layered gradients and pattern */}
-        <div className="h-44 bg-gradient-to-r from-netconnect-blue via-netconnect-lilac to-purple-500 rounded-b-3xl overflow-hidden relative">
+        <div className="h-36 sm:h-44 bg-gradient-to-r from-netconnect-blue via-netconnect-lilac to-purple-500 rounded-b-3xl overflow-hidden relative">
           {/* Mesh gradient background */}
           <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1639322537504-6427a16b0a28?q=80&w=1000')] bg-cover bg-center opacity-10"></div>
           {/* Subtle noise pattern overlay */}
@@ -56,8 +58,8 @@ const ProfileScreen = () => {
           <div className="absolute bottom-0 w-full h-8 bg-gradient-to-t from-netconnect-white dark:from-netconnect-dark to-transparent"></div>
         </div>
         
-        {/* Enhanced Avatar with glowing border and status indicator */}
-        <div className="absolute -bottom-20 left-10 rounded-full p-1 bg-white dark:bg-netconnect-dark-card shadow-lg">
+        {/* Enhanced Avatar with glowing border and status indicator - centered on mobile */}
+        <div className={`absolute -bottom-20 ${isMobile ? 'left-1/2 transform -translate-x-1/2' : 'left-10'} rounded-full p-1 bg-white dark:bg-netconnect-dark-card shadow-lg`}>
           <div className="p-1 rounded-full relative group">
             <div className="absolute inset-0 rounded-full bg-gradient-to-r from-netconnect-blue via-netconnect-lilac to-netconnect-mint opacity-70 group-hover:opacity-100 blur-sm group-hover:blur-md transition-all duration-300"></div>
             <div className="relative rounded-full p-0.5 bg-gradient-to-r from-netconnect-blue to-netconnect-lilac">
@@ -71,7 +73,7 @@ const ProfileScreen = () => {
               <img 
                 src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&q=80" 
                 alt="Profile" 
-                className="w-32 h-32 rounded-full border-4 border-white dark:border-netconnect-dark-card object-cover hover:scale-105 transition-transform duration-300" 
+                className="w-28 h-28 sm:w-32 sm:h-32 rounded-full border-4 border-white dark:border-netconnect-dark-card object-cover hover:scale-105 transition-transform duration-300" 
               />
             </div>
           </div>
@@ -87,11 +89,11 @@ const ProfileScreen = () => {
           </Button>
         </div>
         
-        {/* Redesigned action buttons */}
-        <div className="absolute right-6 -bottom-10 space-x-3 flex items-center">
+        {/* Redesigned action buttons - moved below avatar on mobile */}
+        <div className={`${isMobile ? 'absolute top-24 left-1/2 transform -translate-x-1/2 flex flex-col gap-2 items-center mt-4' : 'absolute right-6 -bottom-10 flex items-center space-x-3'}`}>
           <Button 
             className={cn(
-              "transition-all duration-300 shadow-md hover:shadow-lg hover:translate-y-[-2px] gap-2",
+              "transition-all duration-300 shadow-md hover:shadow-lg hover:translate-y-[-2px] gap-2 w-full sm:w-auto",
               following 
                 ? "bg-gray-200 text-gray-800 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600" 
                 : "bg-netconnect-blue hover:bg-netconnect-blue/90 text-white"
@@ -104,7 +106,7 @@ const ProfileScreen = () => {
           <Button 
             variant="outline" 
             onClick={handleMessage} 
-            className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm hover:bg-white hover:shadow-md dark:hover:bg-gray-700 transition-all duration-300 gap-2"
+            className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm hover:bg-white hover:shadow-md dark:hover:bg-gray-700 transition-all duration-300 gap-2 w-full sm:w-auto"
           >
             <Mail className="w-4 h-4" />
             Message
@@ -112,13 +114,13 @@ const ProfileScreen = () => {
         </div>
       </div>
       
-      <div className="px-6">
+      <div className="px-4 sm:px-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
-          <div>
+          <div className={`${isMobile ? 'text-center' : ''}`}>
             <h1 className="text-2xl md:text-3xl font-bold mb-1">Sarah Anderson</h1>
             <p className="text-netconnect-blue dark:text-netconnect-mint font-medium mb-2">UX/UI Designer & Product Strategist</p>
             <p className="text-sm text-gray-500 dark:text-gray-400 mb-3 italic">"Let's build the future of design together 💡"</p>
-            <div className="flex flex-wrap items-center text-gray-500 dark:text-gray-400 text-sm mb-3 gap-y-2 gap-x-4">
+            <div className={`flex flex-wrap ${isMobile ? 'justify-center' : ''} items-center text-gray-500 dark:text-gray-400 text-sm mb-3 gap-y-2 gap-x-4`}>
               <div className="flex items-center">
                 <div className="w-6 h-6 rounded-full bg-netconnect-blue/10 dark:bg-netconnect-mint/10 flex items-center justify-center mr-2">
                   <MapPin className="w-3.5 h-3.5 text-netconnect-blue dark:text-netconnect-mint" />
@@ -160,7 +162,7 @@ const ProfileScreen = () => {
           </div>
         </div>
         
-        {/* Enhanced sticky tabs with animation */}
+        {/* Enhanced sticky tabs with animation - now with overflow for mobile */}
         <div className={cn(
           "transition-all duration-300 z-10",
           isScrolled ? "sticky top-0 bg-white/90 dark:bg-netconnect-dark/90 backdrop-blur-md shadow-md py-2 px-2 -mx-2 rounded-md" : ""
@@ -251,7 +253,7 @@ const ProfileScreen = () => {
             </TabsContent>
             
             <TabsContent value="portfolio" className="space-y-4 animate-fade-in">
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 gap-4">
                 {/* Enhanced portfolio cards with better hover effects */}
                 <div className="relative group rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300">
                   <img 
@@ -373,7 +375,7 @@ const ProfileScreen = () => {
             <TabsContent value="education" className="space-y-4 animate-fade-in">
               <Card className="border border-gray-200 dark:border-gray-800 shadow-md hover:shadow-lg transition-shadow duration-300">
                 <CardContent className="pt-6 space-y-6">
-                  <div className="flex gap-4 group hover:bg-gray-50 dark:hover:bg-gray-800/30 p-3 rounded-lg transition-colors duration-300 -mx-3">
+                  <div className="flex flex-col sm:flex-row gap-4 group hover:bg-gray-50 dark:hover:bg-gray-800/30 p-3 rounded-lg transition-colors duration-300 -mx-3">
                     <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded-lg self-start group-hover:bg-netconnect-blue/10 dark:group-hover:bg-netconnect-mint/10 transition-colors">
                       <GraduationCap className="w-6 h-6 text-netconnect-blue dark:text-netconnect-mint" />
                     </div>
@@ -382,14 +384,14 @@ const ProfileScreen = () => {
                       <div className="text-sm text-gray-500 dark:text-gray-400 mb-2">California Institute of Arts</div>
                       <div className="text-sm text-gray-500 dark:text-gray-400 mb-3">2018 - 2020</div>
                       <p className="text-gray-600 dark:text-gray-300">Focused on digital product design, user experience, and interactive media.</p>
-                      <div className="mt-2 flex gap-2">
+                      <div className="mt-2 flex gap-2 flex-wrap">
                         <Badge variant="outline" className="hover:bg-netconnect-blue/5 dark:hover:bg-netconnect-mint/5 transition-colors">UX Design</Badge>
                         <Badge variant="outline" className="hover:bg-netconnect-blue/5 dark:hover:bg-netconnect-mint/5 transition-colors">Interaction Design</Badge>
                       </div>
                     </div>
                   </div>
                   
-                  <div className="flex gap-4 group hover:bg-gray-50 dark:hover:bg-gray-800/30 p-3 rounded-lg transition-colors duration-300 -mx-3">
+                  <div className="flex flex-col sm:flex-row gap-4 group hover:bg-gray-50 dark:hover:bg-gray-800/30 p-3 rounded-lg transition-colors duration-300 -mx-3">
                     <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded-lg self-start group-hover:bg-netconnect-blue/10 dark:group-hover:bg-netconnect-mint/10 transition-colors">
                       <Award className="w-6 h-6 text-netconnect-blue dark:text-netconnect-mint" />
                     </div>
@@ -401,7 +403,7 @@ const ProfileScreen = () => {
                     </div>
                   </div>
                   
-                  <div className="flex gap-4 group hover:bg-gray-50 dark:hover:bg-gray-800/30 p-3 rounded-lg transition-colors duration-300 -mx-3">
+                  <div className="flex flex-col sm:flex-row gap-4 group hover:bg-gray-50 dark:hover:bg-gray-800/30 p-3 rounded-lg transition-colors duration-300 -mx-3">
                     <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded-lg self-start group-hover:bg-netconnect-blue/10 dark:group-hover:bg-netconnect-mint/10 transition-colors">
                       <FileText className="w-6 h-6 text-netconnect-blue dark:text-netconnect-mint" />
                     </div>

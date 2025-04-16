@@ -163,4 +163,30 @@
   .job-apply-btn {
     @apply bg-netconnect-blue text-white hover:bg-opacity-90 font-medium rounded-lg py-2 px-4 transition-all duration-300 flex items-center gap-2 hover:animate-bounce-subtle;
   }
+  
+  /* Add scrollbar-none utility */
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Add animation-fade-in utility */
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .animate-fade-in {
+    animation: fade-in 0.3s ease-out;
+  }
 }
