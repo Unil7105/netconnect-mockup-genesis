@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import Navbar from "../components/Navbar";
 import { Search, Send, Phone, Video, MoreHorizontal, Image, Paperclip, Smile, Mic, Filter, Check, Clock, Plus, ChevronDown, MessageSquare, Mail } from "lucide-react";
@@ -16,7 +15,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
-// First, let's update the message type to make day optional
 interface Message {
   id: number;
   sender: string;
@@ -345,7 +343,6 @@ const Messages = () => {
 
   const handleSendMessage = () => {
     if (messageText.trim()) {
-      // In a real app, we would send the message to the backend
       console.log("Sending message:", messageText);
       setMessageText("");
     }
@@ -366,9 +363,7 @@ const Messages = () => {
         </div>
         
         <div className="flex h-[calc(100vh-12rem)] rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700/50 shadow-lg backdrop-blur-sm bg-white/5 dark:bg-gray-900/40">
-          {/* Conversations Sidebar */}
           <div className="w-full sm:w-1/3 md:w-1/4 bg-white/80 dark:bg-gray-900/80 border-r border-gray-200 dark:border-gray-800/50 flex flex-col relative">
-            {/* Shadow overlay for scroll effect */}
             <div className="absolute top-0 left-0 right-0 h-4 bg-gradient-to-b from-white dark:from-gray-900 to-transparent z-10 pointer-events-none"></div>
             
             <div className="p-4 border-b border-gray-200 dark:border-gray-800/50 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm sticky top-0 z-10">
@@ -379,7 +374,7 @@ const Messages = () => {
                     <TooltipTrigger asChild>
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                          <Button variant="ghost" size="icon" className="h-8 w-8 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors">
+                          <Button variant="ghost" size="icon-sm" className="hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors">
                             <Filter className="h-4 w-4" />
                           </Button>
                         </DropdownMenuTrigger>
@@ -432,13 +427,13 @@ const Messages = () => {
                   <button
                     key={conversation.id}
                     className={`w-full text-left p-4 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors border-b border-gray-100 dark:border-gray-800/30 ${
-                      selectedChat === conversation.id ? "bg-gray-50 dark:bg-gray-800/70" : ""
+                      selectedChat === conversation.id ? "bg-gray-50 dark:bg-gray-800/70 border-l-4 border-l-netconnect-blue dark:border-l-netconnect-mint" : ""
                     }`}
                     onClick={() => setSelectedChat(conversation.id)}
                   >
                     <div className="flex items-center gap-3">
-                      <div className="relative">
-                        <Avatar className="h-12 w-12 ring-2 ring-white/10 dark:ring-gray-800/70 hover:ring-netconnect-blue/20 dark:hover:ring-netconnect-mint/20 transition-all">
+                      <div className="relative flex-shrink-0">
+                        <Avatar className="h-10 w-10 ring-2 ring-white/10 dark:ring-gray-800/70 hover:ring-netconnect-blue/20 dark:hover:ring-netconnect-mint/20 transition-all">
                           <AvatarImage src={conversation.avatar} />
                           <AvatarFallback>{conversation.name.charAt(0)}</AvatarFallback>
                         </Avatar>
@@ -454,12 +449,12 @@ const Messages = () => {
                               <span className="inline-block w-2 h-2 bg-netconnect-coral rounded-full ml-2 animate-pulse"></span>
                             )}
                           </h4>
-                          <span className="text-xs text-gray-500">{conversation.time}</span>
+                          <span className="text-xs text-gray-500 ml-2 flex-shrink-0">{conversation.time}</span>
                         </div>
                         <p className="text-sm text-gray-500 truncate">{conversation.lastMessage}</p>
                       </div>
                       {conversation.unread > 0 && (
-                        <Badge className="ml-2 bg-netconnect-coral shadow-[0_0_10px_rgba(255,107,107,0.5)]">{conversation.unread}</Badge>
+                        <Badge className="ml-2 bg-netconnect-coral shadow-[0_0_10px_rgba(255,107,107,0.5)] flex-shrink-0">{conversation.unread}</Badge>
                       )}
                     </div>
                   </button>
@@ -478,18 +473,16 @@ const Messages = () => {
             </div>
             
             <div className="p-4 border-t border-gray-200 dark:border-gray-800/50 sticky bottom-0 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm">
-              <Button className="w-full bg-netconnect-blue hover:bg-netconnect-blue/90 text-white shadow-[0_4px_14px_rgba(31,58,147,0.4)] hover:shadow-[0_6px_20px_rgba(31,58,147,0.6)] transition-all">
+              <Button className="w-full bg-netconnect-blue hover:bg-netconnect-blue/90 text-white shadow-[0_4px_14px_rgba(31,58,147,0.4)] hover:shadow-[0_6px_20px_rgba(31,58,147,0.6)] transition-all hover:translate-y-[-1px] active:translate-y-[1px]">
                 <Mail className="mr-2 h-4 w-4" /> New Message
               </Button>
             </div>
           </div>
           
-          {/* Chat Area */}
           <div className="hidden sm:flex sm:w-2/3 md:w-3/4 flex-col bg-gray-50/30 dark:bg-gray-900/40 backdrop-blur-sm">
             {selectedChat ? (
               <>
-                {/* Chat Header */}
-                <div className="p-4 bg-white/50 dark:bg-gray-900/60 border-b border-gray-200 dark:border-gray-800/50 flex items-center justify-between sticky top-0 backdrop-blur-sm">
+                <div className="p-4 bg-white/50 dark:bg-gray-900/60 border-b border-gray-200 dark:border-gray-800/50 flex items-center justify-between sticky top-0 backdrop-blur-sm z-10">
                   <div className="flex items-center gap-3">
                     <Avatar className="h-10 w-10 ring-2 ring-white/10 dark:ring-gray-800/70">
                       <AvatarImage src={conversations.find(c => c.id === selectedChat)?.avatar} />
@@ -511,7 +504,7 @@ const Messages = () => {
                     <TooltipProvider>
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <Button variant="ghost" size="icon" className="rounded-full h-9 w-9 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800/70 transition-colors">
+                          <Button variant="ghost" size="icon-sm" className="rounded-full text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800/70 transition-colors">
                             <Phone className="h-4 w-4" />
                           </Button>
                         </TooltipTrigger>
@@ -524,7 +517,7 @@ const Messages = () => {
                     <TooltipProvider>
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <Button variant="ghost" size="icon" className="rounded-full h-9 w-9 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800/70 transition-colors">
+                          <Button variant="ghost" size="icon-sm" className="rounded-full text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800/70 transition-colors">
                             <Video className="h-4 w-4" />
                           </Button>
                         </TooltipTrigger>
@@ -537,7 +530,7 @@ const Messages = () => {
                     <TooltipProvider>
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <Button variant="ghost" size="icon" className="rounded-full h-9 w-9 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800/70 transition-colors">
+                          <Button variant="ghost" size="icon-sm" className="rounded-full text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800/70 transition-colors">
                             <MoreHorizontal className="h-4 w-4" />
                           </Button>
                         </TooltipTrigger>
@@ -549,27 +542,26 @@ const Messages = () => {
                   </div>
                 </div>
                 
-                {/* Messages */}
-                <div className="flex-1 p-4 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-700">
+                <div className="flex-1 p-4 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-700 bg-opacity-30 bg-gradient-to-b from-gray-50/10 to-gray-100/20 dark:from-gray-900/10 dark:to-gray-800/20">
                   <div className="space-y-4">
                     {getMessagesForSelectedChat().map((message, index) => {
-                      // Check if this message shows a different day than the previous message
                       const showDayDivider = index === 0 || 
                                             message.day !== getMessagesForSelectedChat()[index - 1].day;
                       
                       return (
                         <div key={message.id}>
                           {showDayDivider && message.day && (
-                            <div className="flex items-center justify-center my-6">
-                              <div className="bg-gray-200 dark:bg-gray-800/70 px-3 py-1 rounded-full text-xs text-gray-500">
+                            <div className="flex items-center justify-center my-6 relative">
+                              <div className="absolute left-0 right-0 h-[1px] bg-gray-200 dark:bg-gray-700/50"></div>
+                              <div className="bg-gray-200 dark:bg-gray-800/70 px-4 py-1.5 rounded-full text-xs text-gray-500 relative z-10 shadow-sm">
                                 {message.day}
                               </div>
                             </div>
                           )}
                           
-                          <div className={`flex gap-3 ${message.isUser ? 'justify-end' : ''}`}>
+                          <div className={`flex gap-3 ${message.isUser ? 'justify-end' : ''} animate-fade-in`}>
                             {!message.isUser && (
-                              <Avatar className="h-8 w-8 ring-1 ring-white/10 dark:ring-gray-800/70">
+                              <Avatar className="h-8 w-8 mt-1 ring-1 ring-white/10 dark:ring-gray-800/70 flex-shrink-0">
                                 <AvatarImage src={conversations.find(c => c.id === selectedChat)?.avatar} />
                                 <AvatarFallback>
                                   {conversations.find(c => c.id === selectedChat)?.name.charAt(0) || ''}
@@ -577,17 +569,19 @@ const Messages = () => {
                               </Avatar>
                             )}
                             <div 
-                              className={`max-w-[70%] ${
+                              className={`max-w-[70%] p-0 ${
                                 message.isUser 
-                                  ? 'bg-netconnect-blue text-white shadow-[0_4px_14px_rgba(31,58,147,0.2)]' 
-                                  : 'bg-white dark:bg-gray-800/70 shadow-[0_4px_10px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_10px_rgba(0,0,0,0.2)]'
-                              } rounded-2xl px-4 py-3 transition-all hover:shadow-lg`}
+                                  ? 'bg-netconnect-blue text-white shadow-[0_4px_14px_rgba(31,58,147,0.2)] hover:shadow-[0_6px_20px_rgba(31,58,147,0.3)]' 
+                                  : 'bg-white dark:bg-gray-800/70 shadow-[0_4px_10px_rgba(0,0,0,0.05)] dark:shadow-[0_4px_10px_rgba(0,0,0,0.2)] hover:shadow-[0_6px_14px_rgba(0,0,0,0.1)] dark:hover:shadow-[0_6px_14px_rgba(0,0,0,0.3)]'
+                              } rounded-2xl transition-all duration-300`}
                             >
-                              <p className="text-sm">{message.text}</p>
-                              <span className={`text-[10px] ${message.isUser ? 'text-blue-200' : 'text-gray-500'} block text-right mt-1`}>
-                                {message.time}
-                                {message.isUser && <Check className="inline ml-1 h-3 w-3" />}
-                              </span>
+                              <div className="px-4 py-3">
+                                <p className="text-sm">{message.text}</p>
+                                <span className={`text-[10px] ${message.isUser ? 'text-blue-200' : 'text-gray-500'} block text-right mt-1`}>
+                                  {message.time}
+                                  {message.isUser && <Check className="inline ml-1 h-3 w-3" />}
+                                </span>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -596,7 +590,6 @@ const Messages = () => {
                   </div>
                 </div>
                 
-                {/* Message Input */}
                 <div className="p-4 bg-white/50 dark:bg-gray-900/60 border-t border-gray-200 dark:border-gray-800/50 sticky bottom-0 backdrop-blur-sm">
                   <Card className="p-1 border border-gray-200 dark:border-gray-700/50 bg-white/80 dark:bg-gray-800/50 shadow-lg">
                     <CardContent className="p-0">
@@ -604,7 +597,7 @@ const Messages = () => {
                         <div className="flex-1">
                           <textarea
                             placeholder="Type a message..."
-                            className="w-full border-none focus:outline-none focus:ring-0 resize-none py-2 px-3 max-h-20 text-sm bg-transparent"
+                            className="w-full border-none focus:outline-none focus:ring-0 resize-none py-3 px-4 max-h-24 text-sm bg-transparent transition-all"
                             value={messageText}
                             onChange={(e) => setMessageText(e.target.value)}
                             onKeyDown={(e) => {
@@ -616,11 +609,11 @@ const Messages = () => {
                             rows={1}
                           />
                         </div>
-                        <div className="flex items-center gap-1 px-2">
+                        <div className="flex items-center gap-1 px-2 flex-shrink-0">
                           <TooltipProvider>
                             <Tooltip>
                               <TooltipTrigger asChild>
-                                <Button variant="ghost" size="icon" className="rounded-full h-8 w-8 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700/50">
+                                <Button variant="ghost" size="icon-sm" className="rounded-full h-8 w-8 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700/50">
                                   <Paperclip className="h-4 w-4" />
                                 </Button>
                               </TooltipTrigger>
@@ -633,7 +626,7 @@ const Messages = () => {
                           <TooltipProvider>
                             <Tooltip>
                               <TooltipTrigger asChild>
-                                <Button variant="ghost" size="icon" className="rounded-full h-8 w-8 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700/50">
+                                <Button variant="ghost" size="icon-sm" className="rounded-full h-8 w-8 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700/50">
                                   <Image className="h-4 w-4" />
                                 </Button>
                               </TooltipTrigger>
@@ -646,7 +639,7 @@ const Messages = () => {
                           <TooltipProvider>
                             <Tooltip>
                               <TooltipTrigger asChild>
-                                <Button variant="ghost" size="icon" className="rounded-full h-8 w-8 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700/50">
+                                <Button variant="ghost" size="icon-sm" className="rounded-full h-8 w-8 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700/50">
                                   <Smile className="h-4 w-4" />
                                 </Button>
                               </TooltipTrigger>
@@ -657,9 +650,10 @@ const Messages = () => {
                           </TooltipProvider>
                           
                           <Button 
-                            className="ml-1 h-9 w-9 rounded-full bg-netconnect-blue hover:bg-netconnect-blue/90 p-0 shadow-[0_4px_10px_rgba(31,58,147,0.3)] hover:shadow-[0_4px_14px_rgba(31,58,147,0.5)] transition-all"
+                            className="ml-1 h-9 w-9 rounded-full bg-netconnect-blue hover:bg-netconnect-blue/90 p-0 shadow-[0_4px_10px_rgba(31,58,147,0.3)] hover:shadow-[0_4px_14px_rgba(31,58,147,0.5)] transition-all hover:scale-105 active:scale-95"
                             onClick={handleSendMessage}
                             disabled={!messageText.trim()}
+                            aria-label="Send message"
                           >
                             <Send className="h-4 w-4 text-white" />
                           </Button>
@@ -678,7 +672,7 @@ const Messages = () => {
                 <p className="text-gray-500 dark:text-gray-400 max-w-md mb-6">
                   Select a conversation or start a new one to begin messaging
                 </p>
-                <Button className="bg-netconnect-blue hover:bg-netconnect-blue/90 text-white shadow-[0_4px_14px_rgba(31,58,147,0.4)] hover:shadow-[0_6px_20px_rgba(31,58,147,0.6)] transition-all">
+                <Button variant="glass-primary" className="shadow-lg hover:shadow-xl transition-all hover:translate-y-[-2px] active:translate-y-[1px]">
                   <Mail className="mr-2 h-4 w-4" /> New Message
                 </Button>
               </div>
