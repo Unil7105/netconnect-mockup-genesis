@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import Navbar from "../components/Navbar";
-import { Search, Send, Phone, Video, MoreHorizontal, Image, Paperclip, Smile, Mic, Filter, Check, Clock, Plus, ChevronDown } from "lucide-react";
+import { Search, Send, Phone, Video, MoreHorizontal, Image, Paperclip, Smile, Mic, Filter, Check, Clock, Plus, ChevronDown, MessageSquare } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
