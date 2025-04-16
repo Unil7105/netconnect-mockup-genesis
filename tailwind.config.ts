@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,35 +62,57 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				netconnect: {
+					blue: '#1F3A93',
+					mint: '#1ABC9C',
+					lilac: '#9B59B6',
+					coral: '#FF6B6B',
+					white: '#FAFAFB',
+					dark: '#121212',
+					'dark-card': '#1E1E1E',
+				},
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)'
 			},
+			fontFamily: {
+				'sora': ['Sora', 'sans-serif'],
+				'inter': ['Inter', 'sans-serif'],
+				'work-sans': ['Work Sans', 'sans-serif']
+			},
 			keyframes: {
 				'accordion-down': {
-					from: {
-						height: '0'
-					},
-					to: {
-						height: 'var(--radix-accordion-content-height)'
-					}
+					from: { height: '0' },
+					to: { height: 'var(--radix-accordion-content-height)' },
 				},
 				'accordion-up': {
-					from: {
-						height: 'var(--radix-accordion-content-height)'
-					},
-					to: {
-						height: '0'
-					}
-				}
+					from: { height: 'var(--radix-accordion-content-height)' },
+					to: { height: '0' },
+				},
+				'pulse-gentle': {
+					'0%, 100%': { opacity: '1' },
+					'50%': { opacity: '0.85' },
+				},
+				'bounce-subtle': {
+					'0%, 100%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-4px)' },
+				},
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
-			}
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'pulse-gentle': 'pulse-gentle 2s infinite ease-in-out',
+				'bounce-subtle': 'bounce-subtle 1s infinite ease-in-out',
+			},
+			boxShadow: {
+				'card': '0 4px 6px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.08)',
+				'card-hover': '0 10px 20px rgba(0, 0, 0, 0.06), 0 4px 6px rgba(0, 0, 0, 0.1)',
+				'button': '0 2px 5px rgba(0, 0, 0, 0.1)',
+				'button-hover': '0 4px 10px rgba(0, 0, 0, 0.15)',
+			},
 		}
 	},
 	plugins: [require("tailwindcss-animate")],
